@@ -17,20 +17,22 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
 
     target_compile_definitions(${APPLY_NAME} PRIVATE FRAME_POINTER_OMISSION_DISABLED=1)
 
-    if(SOURCE_SDK_IS_WINDOWS)
-        target_include_directories(${APPLY_NAME} PRIVATE
-            ${SOURCE_SDK_DIRECTORY_BASE}/common
-            ${SOURCE_SDK_DIRECTORY_BASE}/public
-            ${SOURCE_SDK_DIRECTORY_PUBLIC}/tier0
-            ${SOURCE_SDK_DIRECTORY_PUBLIC}/tier1
-        )
+    target_include_directories(${APPLY_NAME} PRIVATE
+        ${SOURCE_SDK_DIRECTORY_BASE}/common
+        ${SOURCE_SDK_DIRECTORY_BASE}/public
+        ${SOURCE_SDK_DIRECTORY_PUBLIC}/tier0
+        ${SOURCE_SDK_DIRECTORY_PUBLIC}/tier1
+    )
 
-        # @note @todo @patchbyte unify
+    if(SOURCE_SDK_IS_WINDOWS)
         target_compile_options(${APPLY_NAME} PRIVATE
             /Zc:wchar_t
+            /Zc:strictStrings-
             /Oi
-            # /Wp64
+            /W4
         )
+    
+        # @note @todo @patchbyte unify
 
         target_compile_definitions(${APPLY_NAME} PRIVATE
             WIN32=1
@@ -47,6 +49,6 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
             target_compile_definitions(${APPLY_NAME} PRIVATE RELEASEASSERTS)
         endif()
 
-        set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 20)
+        set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 17)
     endif()
 endfunction()

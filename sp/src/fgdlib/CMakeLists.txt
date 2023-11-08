@@ -1,0 +1,38 @@
+project("fgdlib")
+
+include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_lib_base.cmake)
+
+# The wildcarding is way easier than picking the files single one by one per hand.
+# @note @todo remove later
+
+set(FGDLIB_SOURCE_DIRECTORY ${SOURCE_SDK_DIRECTORY_BASE}/fgdlib)
+set(FGDLIB_PUBLIC_DIRECTORY ${SOURCE_SDK_DIRECTORY_PUBLIC}/fgdlib)
+
+set(FGDLIB_SOURCE_FILES
+    ${FGDLIB_SOURCE_DIRECTORY}/gamedata.cpp
+    ${FGDLIB_SOURCE_DIRECTORY}/gdclass.cpp
+    ${FGDLIB_SOURCE_DIRECTORY}/gdvar.cpp
+    ${FGDLIB_SOURCE_DIRECTORY}/inputoutput.cpp
+    ${FGDLIB_SOURCE_DIRECTORY}/wckeyvalues.cpp
+)
+
+set(FGDLIB_PUBLIC_HEADER_FILES
+    ${FGDLIB_PUBLIC_DIRECTORY}/fgdlib.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/gamedata.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/gdclass.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/gdvar.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/helperinfo.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/ieditortexture.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/inputoutput.h
+    ${FGDLIB_PUBLIC_DIRECTORY}/wckeyvalues.h
+)
+
+add_library(${PROJECT_NAME} STATIC ${FGDLIB_SOURCE_FILES} ${FGDLIB_PUBLIC_HEADER_FILES})
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+target_include_directories(${PROJECT_NAME} PUBLIC 
+    ${FGDLIB_PUBLIC_DIRECTORY}
+    ${SOURCE_SDK_DIRECTORY_BASE}/utils/common
+)
+
+SOURCE_LIB_BASE_APPLY_PROPERTIES(${PROJECT_NAME})
