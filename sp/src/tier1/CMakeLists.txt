@@ -163,4 +163,7 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_definitions(${PROJECT_NAME} PRIVATE TIER1_STATIC_LIB=1)
 target_include_directories(${PROJECT_NAME} PUBLIC ${TIER1_PUBLIC_DIRECTORY})
 
+# @todo @note @patchbyte Is this still needed?
+target_link_libraries(${PROJECT_NAME} PRIVATE Rpcrt4.lib)
+
 SOURCE_LIB_BASE_APPLY_PROPERTIES(${PROJECT_NAME})
