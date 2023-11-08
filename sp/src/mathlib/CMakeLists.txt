@@ -1,0 +1,105 @@
+project("mathlib")
+
+include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_lib_base.cmake)
+
+set(MATHLIB_SOURCE_DIRECTORY ${SOURCE_SDK_DIRECTORY_BASE}/mathlib)
+set(MATHLIB_PUBLIC_DIRECTORY ${SOURCE_SDK_DIRECTORY_PUBLIC}/mathlib)
+
+set(MATHLIB_SOURCE_FILES
+    ${MATHLIB_SOURCE_DIRECTORY}/color_conversion.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/halton.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/lightdesc.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/mathlib_base.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/powsse.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/sparse_convolution_noise.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/sseconst.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/ssenoise.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/anorms.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/bumpvects.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/IceKey.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/imagequant.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/polyhedron.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/quantize.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/randsse.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/spherical.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/simdvectormatrix.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/vector.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/vmatrix.cpp
+    ${MATHLIB_SOURCE_DIRECTORY}/almostequal.cpp
+)
+
+set(MATHLIB_PUBLIC_HEADER_FILES
+    ${MATHLIB_PUBLIC_DIRECTORY}/anorms.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/bumpvects.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/compressed_3d_unitvec.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/compressed_light_cube.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/compressed_vector.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/halton.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/IceKey.H
+    ${MATHLIB_PUBLIC_DIRECTORY}/lightdesc.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/math_pfns.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/mathlib.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/noise.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/polyhedron.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/quantize.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/simdvectormatrix.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/spherical_geometry.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/ssemath.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/ssequaternion.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/vector.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/vector2d.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/vector4d.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/vmatrix.h
+    ${MATHLIB_PUBLIC_DIRECTORY}/vplane.h
+)
+
+set(MATHLIB_HEADER_FILES
+    ${MATHLIB_SOURCE_DIRECTORY}/noisedata.h
+)
+
+if(${SOURCE_SDK_IS_WINDOWS} OR ${SOURCE_SDK_IS_POSIX})
+    set(MATHLIB_SOURCE_FILES
+        ${MATHLIB_SOURCE_FILES}
+
+        ${MATHLIB_SOURCE_DIRECTORY}/sse.cpp
+    )
+
+    set(MATHLIB_HEADER_FILES
+        ${MATHLIB_HEADER_FILES}
+
+        ${MATHLIB_SOURCE_DIRECTORY}/sse.h
+    )
+endif()
+
+if(${SOURCE_SDK_IS_WINDOWS} OR ${SOURCE_SDK_IS_LINUX})
+    set(MATHLIB_SOURCE_FILES
+        ${MATHLIB_SOURCE_FILES}
+
+        ${MATHLIB_SOURCE_DIRECTORY}/3dnow.cpp
+    )
+
+    set(MATHLIB_PUBLIC_HEADER_FILES
+        ${MATHLIB_PUBLIC_HEADER_FILES}
+
+        ${MATHLIB_PUBLIC_DIRECTORY}/amd3dx.h
+    )
+
+    set(MATHLIB_HEADER_FILES
+        ${MATHLIB_HEADER_FILES}
+
+        ${MATHLIB_SOURCE_DIRECTORY}/3dnow.h
+    )
+endif()
+
+add_library(${PROJECT_NAME} STATIC 
+    ${MATHLIB_HEADER_FILES}
+    ${MATHLIB_SOURCE_FILES}
+    ${MATHLIB_PUBLIC_HEADER_FILES}
+)
+
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+SOURCE_LIB_BASE_APPLY_PROPERTIES(${PROJECT_NAME})
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE MATHLIB_LIB)
+target_include_directories(${PROJECT_NAME} PUBLIC ${MATHLIB_PUBLIC_DIRECTORY})

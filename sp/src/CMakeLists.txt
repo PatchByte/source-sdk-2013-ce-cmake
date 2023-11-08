@@ -5,8 +5,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/archive)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/shared)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/binary)
 
+set(SOURCE_SDK_DIRECTORY_BASE ${CMAKE_CURRENT_SOURCE_DIR}/)
 set(SOURCE_SDK_DIRECTORY_PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/public)
 set(SOURCE_SDK_DIRECTORY_CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+set(SOURCE_SDK_IS_WINDOWS false)
+set(SOURCE_SDK_IS_LINUX false)
+set(SOURCE_SDK_IS_POSIX false)
 
 if(CMAKE_HOST_WIN32)
     message(":D Using source-sdk-2013-ce on windows, have a nice day.")
@@ -31,3 +36,5 @@ elseif(not CMAKE_HOST_WIN32)
 endif()
 
 include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_base.cmake)
+
+add_subdirectory(mathlib)
