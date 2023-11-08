@@ -40,3 +40,4 @@ include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_base.cmake)
 
 add_subdirectory(mathlib)
 add_subdirectory(fgdlib)
+add_subdirectory(tier1)
