@@ -1,6 +1,6 @@
 include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_base.cmake)
 
-function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
+function(SOURCE_EXE_BASE_APPLY_PROPERTIES APPLY_NAME)
     SOURCE_BASE_APPLY_PROPERTIES(${APPLY_NAME})
 
     if(NOT SOURCE_BASE_ENABLE_PUBLISH_MODE)
@@ -30,6 +30,14 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
             /Zc:strictStrings-
             /Oi
             /W4
+            /NXCOMPAT
+        )
+
+        target_link_options(${APPLY_NAME} PRIVATE
+            /FORCE:MULTIPLE
+            /NODEFAULTLIB:LIBC
+            /NODEFAULTLIB:LIBCMT
+            /NODEFAULTLIB:LIBCMTD
         )
     
         # @note @todo @patchbyte unify
@@ -38,8 +46,8 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
             WIN32=1
             _WIN32=1
             NDEBUG=1
-            _DLL_EXT=".dll"
-            LIBNAME=${APPLY_NAME}
+            _WINDOWS=1
+            EXENAME=${PROJECT_NAME}
             _CRT_SECURE_NO_DEPRECATE
             _CRT_NONSTDC_NO_DEPRECATE
             _ALLOW_RUNTIME_LIBRARY_MISMATCH
@@ -51,6 +59,10 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
             target_compile_definitions(${APPLY_NAME} PRIVATE RELEASEASSERTS)
         endif()
 
+        target_link_libraries(${PROJECT_NAME} PRIVATE shell32.lib user32.lib advapi32.lib gdi32.lib comdlg32.lib ole32.lib)
+
         set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 17)
     endif()
+
+    target_link_libraries(${PROJECT_NAME} PRIVATE tier0::tier0 tier1::tier1 vstdlib::vstdlib)
 endfunction()

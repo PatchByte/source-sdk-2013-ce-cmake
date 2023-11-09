@@ -28,8 +28,6 @@ function(SOURCE_BASE_APPLY_PROPERTIES APPLY_NAME)
     if(SOURCE_SDK_IS_WINDOWS)
         target_compile_definitions(${APPLY_NAME} PRIVATE
             COMPILER_MSVC=1
-            _DLL_EXT=".dll"
-            LIBNAME=${APPLY_NAME}
         )
 
         if(SOURCE_SDK_IS_WIN32)
