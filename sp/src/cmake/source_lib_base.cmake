@@ -30,6 +30,7 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
             /Zc:strictStrings-
             /Oi
             /W4
+            
         )
     
         # @note @todo @patchbyte unify
@@ -50,7 +51,5 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
         if(SOURCE_BASE_ENABLE_RELEASE_ASSETS)
             target_compile_definitions(${APPLY_NAME} PRIVATE RELEASEASSERTS)
         endif()
-
-        set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 17)
     endif()
 endfunction()

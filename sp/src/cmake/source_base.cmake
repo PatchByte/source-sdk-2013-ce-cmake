@@ -12,6 +12,8 @@ option(SOURCE_BASE_ENABLE_RELEASE_ASSETS "Enable the release asserts." OFF)
 
 include(CMakeParseArguments)
 
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 function(SOURCE_BASE_APPLY_PROPERTIES APPLY_NAME)
 
     target_compile_definitions(${APPLY_NAME} PRIVATE CMAKE=1)
@@ -61,4 +63,6 @@ function(SOURCE_BASE_APPLY_PROPERTIES APPLY_NAME)
             COMPILER_MSVC32=1
         )
     endif()
+
+    set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 11)
 endfunction()

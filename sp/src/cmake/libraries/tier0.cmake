@@ -1,5 +1,5 @@
 project("tier0")
-enable_language(ASM_MASM)
+# enable_language(ASM_MASM)
 
 include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_lib_base.cmake)
 

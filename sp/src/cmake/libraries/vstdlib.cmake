@@ -18,7 +18,7 @@ set(VSTDLIB_HEADER_FILES
 )
 
 set(VSTDLIB_SOURCE_FILES
-    ${SOURCE_SDK_DIRECTORY_CMAKE}/utility/external-stub-for-libs.c
+    ${SOURCE_SDK_DIRECTORY_CMAKE}/utility/external-stub-for-libs.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${VSTDLIB_HEADER_FILES} ${VSTDLIB_SOURCE_FILES})

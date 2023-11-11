@@ -25,21 +25,24 @@ function(SOURCE_EXE_BASE_APPLY_PROPERTIES APPLY_NAME)
     )
 
     if(SOURCE_SDK_IS_WINDOWS)
+
         target_compile_options(${APPLY_NAME} PRIVATE
             /Zc:wchar_t
             /Zc:strictStrings-
             /Oi
             /W4
-            /NXCOMPAT
         )
 
         target_link_options(${APPLY_NAME} PRIVATE
             /FORCE:MULTIPLE
             /NODEFAULTLIB:LIBC
-            /NODEFAULTLIB:LIBCMT
+            /NODEFAULTLIB:LIBCD
+            /DEFAULTLIB:LIBCMT
             /NODEFAULTLIB:LIBCMTD
+            
+#            /NXCOMPAT
         )
-    
+   
         # @note @todo @patchbyte unify
 
         target_compile_definitions(${APPLY_NAME} PRIVATE
@@ -59,10 +62,8 @@ function(SOURCE_EXE_BASE_APPLY_PROPERTIES APPLY_NAME)
             target_compile_definitions(${APPLY_NAME} PRIVATE RELEASEASSERTS)
         endif()
 
-        target_link_libraries(${PROJECT_NAME} PRIVATE shell32.lib user32.lib advapi32.lib gdi32.lib comdlg32.lib ole32.lib)
-
-        set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 17)
+        target_link_libraries(${APPLY_NAME} PRIVATE shell32.lib user32.lib advapi32.lib gdi32.lib comdlg32.lib ole32.lib)
     endif()
 
-    target_link_libraries(${PROJECT_NAME} PRIVATE tier0::tier0 tier1::tier1 vstdlib::vstdlib)
+    target_link_libraries(${APPLY_NAME} PRIVATE tier0::tier0 tier1::tier1 vstdlib::vstdlib)
 endfunction()
