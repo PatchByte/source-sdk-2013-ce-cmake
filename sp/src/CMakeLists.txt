@@ -74,6 +74,7 @@ include(${SOURCE_SDK_DIRECTORY_CMAKE}/build.cmake)
 add_subdirectory(mathlib)
 add_subdirectory(fgdlib)
 add_subdirectory(tier1)
+add_subdirectory(raytrace)
 
 add_subdirectory(utils/captioncompiler)
 add_subdirectory(utils/height2normal)
