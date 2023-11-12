@@ -75,6 +75,7 @@ add_subdirectory(mathlib)
 add_subdirectory(fgdlib)
 add_subdirectory(tier1)
 
+add_subdirectory(utils/captioncompiler)
 add_subdirectory(utils/height2normal)
 add_subdirectory(utils/vice)
 

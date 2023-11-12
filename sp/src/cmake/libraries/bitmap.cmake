@@ -24,9 +24,9 @@ add_library(${PROJECT_NAME} STATIC ${BITMAP_HEADER_FILES} ${BITMAP_SOURCE_FILES}
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 if(SOURCE_SDK_IS_WINDOWS)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${SOURCE_SDK_DIRECTORY_GAME_LIBRARIES}/bitmap.lib)
+    target_link_libraries(${PROJECT_NAME} INTERFACE ${SOURCE_SDK_DIRECTORY_GAME_LIBRARIES}/bitmap.lib)
 elseif(SOURCE_SDK_IS_LINUX)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${SOURCE_SDK_DIRECTORY_GAME_LIBRARIES}/linux32/bitmap.a)
+    target_link_libraries(${PROJECT_NAME} INTERFACE ${SOURCE_SDK_DIRECTORY_GAME_LIBRARIES}/linux32/bitmap.a)
 else()
     message(FATAL_ERROR "Non supported architecture or operating system encounter.")
 endif()

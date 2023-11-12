@@ -1,0 +1,32 @@
+project("appframework")
+
+set(APPFRAMEWORK_PUBLIC_DIRECTORY
+    ${SOURCE_SDK_DIRECTORY_PUBLIC}/appframework
+)
+
+set(APPFRAMEWORK_HEADER_FILES
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/AppFramework.h
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/IAppSystem.h
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/IAppSystemGroup.h
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/ilaunchermgr.h
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/tier2app.h
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/tier3app.h
+    ${APPFRAMEWORK_PUBLIC_DIRECTORY}/VguiMatSysApp.h
+)
+
+set(APPFRAMEWORK_SOURCE_FILES
+    ${SOURCE_SDK_DIRECTORY_CMAKE}/utility/external-stub-for-libs.cpp
+)
+
+add_library(${PROJECT_NAME} STATIC ${APPFRAMEWORK_HEADER_FILES} ${APPFRAMEWORK_SOURCE_FILES})
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+if(SOURCE_SDK_IS_WINDOWS)
+    target_link_libraries(${PROJECT_NAME} INTERFACE ${SOURCE_SDK_DIRECTORY_GAME_LIBRARIES}/appframework.lib)
+#elseif(SOURCE_SDK_IS_LINUX)
+#    target_link_libraries(${PROJECT_NAME} PUBLIC ${SOURCE_SDK_DIRECTORY_GAME_LIBRARIES}/linux32/libvstdlib.a)
+else()
+    message(FATAL_ERROR "Non supported architecture or operating system encounter.")
+endif()
+
+SOURCE_LIB_BASE_APPLY_PROPERTIES(${PROJECT_NAME})
