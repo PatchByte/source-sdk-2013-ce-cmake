@@ -1,0 +1,18 @@
+project("vvis_launcher")
+
+include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_exe_base.cmake)
+
+set(VVIS_LAUNCHER_SOURCE_DIRECTORY 
+    ${SOURCE_SDK_DIRECTORY_UTILS}/vvis_launcher
+)
+
+set(VVIS_LAUNCHER_SOURCE_FILES
+    ${VVIS_LAUNCHER_SOURCE_DIRECTORY}/StdAfx.h
+    ${VVIS_LAUNCHER_SOURCE_DIRECTORY}/vvis_launcher.cpp
+)
+
+add_executable(${PROJECT_NAME} 
+    ${VVIS_LAUNCHER_SOURCE_FILES}
+)
+
+SOURCE_EXE_BASE_APPLY_PROPERTIES(${PROJECT_NAME})

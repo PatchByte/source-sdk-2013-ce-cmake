@@ -81,5 +81,6 @@ add_subdirectory(utils/height2normal)
 add_subdirectory(utils/motionmapper)
 add_subdirectory(utils/vice)
 add_subdirectory(utils/vvis)
+add_subdirectory(utils/vvis_launcher)
 
 # add_subdirectory(utils/glview)
