@@ -2,7 +2,7 @@ project("vice")
 
 include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_exe_base.cmake)
 
-set(VICE_SOURCE_DIRECTORY ${SOURCE_SDK_DIRECTORY_BASE}/utils/vice)
+set(VICE_SOURCE_DIRECTORY ${SOURCE_SDK_DIRECTORY_UTILS}/vice)
 
 # Why do we have to externally include ${SOURCE_SDK_DIRECTORY_UTILS_COMMON} stuff here. This is not a good design.
 
