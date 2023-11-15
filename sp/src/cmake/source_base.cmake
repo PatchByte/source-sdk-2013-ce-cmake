@@ -30,6 +30,19 @@ function(SOURCE_BASE_APPLY_PROPERTIES APPLY_NAME)
     if(SOURCE_SDK_IS_WINDOWS)
         target_compile_definitions(${APPLY_NAME} PRIVATE
             COMPILER_MSVC=1
+            _CRT_SECURE_NO_DEPRECATE=1
+            _CRT_NONSTDC_NO_DEPRECATE=1
+            _ALLOW_RUNTIME_LIBRARY_MISMATCH=1
+            _ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH=1
+            _ALLOW_MSC_VER_MISMATCH=1
+        )
+
+        target_compile_options(${APPLY_NAME} PRIVATE
+            /Gw
+            /Gy
+            /GR
+            /GF
+            /Oi
         )
 
         if(SOURCE_SDK_IS_WIN32)
@@ -49,6 +62,8 @@ function(SOURCE_BASE_APPLY_PROPERTIES APPLY_NAME)
                 QUICKTIME_VIDEO=1
             )
         endif()
+
+        target_link_libraries(${PROJECT_NAME} PUBLIC legacy_stdio_definitions)
     endif()
 
     if(SOURCE_SDK_IS_WIN64)
@@ -64,5 +79,5 @@ function(SOURCE_BASE_APPLY_PROPERTIES APPLY_NAME)
         )
     endif()
 
-    set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 11)
+    set_property(TARGET ${APPLY_NAME} PROPERTY CXX_STANDARD 14)
 endfunction()

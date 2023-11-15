@@ -35,12 +35,12 @@ function(SOURCE_EXE_BASE_APPLY_PROPERTIES APPLY_NAME)
 
         target_link_options(${APPLY_NAME} PRIVATE
             /FORCE:MULTIPLE
-            /NODEFAULTLIB:LIBC
-            /NODEFAULTLIB:LIBCD
-            /DEFAULTLIB:LIBCMT
-            /NODEFAULTLIB:LIBCMTD
-            
-#            /NXCOMPAT
+            /NODEFAULTLIB:libc
+            /NODEFAULTLIB:libcd
+            /NODEFAULTLIB:libcmtd
+            /SAFESEH:NO
+            /NXCOMPAT
+            /ignore:4221
         )
    
         # @note @todo @patchbyte unify
@@ -62,7 +62,19 @@ function(SOURCE_EXE_BASE_APPLY_PROPERTIES APPLY_NAME)
             target_compile_definitions(${APPLY_NAME} PRIVATE RELEASEASSERTS)
         endif()
 
-        target_link_libraries(${APPLY_NAME} PRIVATE shell32.lib user32.lib advapi32.lib gdi32.lib comdlg32.lib ole32.lib)
+        target_link_libraries(${APPLY_NAME} PRIVATE 
+            shell32.lib
+            user32.lib
+            advapi32.lib
+            gdi32.lib
+            comdlg32.lib
+            ole32.lib
+            glu32.lib
+            opengl32.lib
+            odbc32.lib
+            odbccp32.lib
+            winmm.lib
+        )
     endif()
 
     target_link_libraries(${APPLY_NAME} PRIVATE tier0::tier0 tier1::tier1 vstdlib::vstdlib)

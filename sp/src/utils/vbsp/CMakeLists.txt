@@ -1,14 +1,14 @@
-project("vrad_dll")
+project("vbsp")
 
 include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_dll_base.cmake)
 
-set(VRAD_SOURCE_DIRECTORY
-    ${SOURCE_SDK_DIRECTORY_UTILS}/vrad
+set(VBSP_SOURCE_DIRECTORY
+    ${SOURCE_SDK_DIRECTORY_UTILS}/vbsp
 )
 
-file(GLOB VRAD_SOURCE_FILES
-    ${VRAD_SOURCE_DIRECTORY}/*.h
-    ${VRAD_SOURCE_DIRECTORY}/*.cpp
+file(GLOB VBSP_SOURCE_FILES 
+    ${VBSP_SOURCE_DIRECTORY}/*.cpp
+    ${VBSP_SOURCE_DIRECTORY}/*.h
 )
 
 set(VRAD_INCLUDE_FILES
@@ -40,6 +40,10 @@ set(VRAD_INCLUDE_FILES
     ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/scratchpad_helpers.h
     ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/vmpi_tools_shared.cpp
     ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/vmpi_tools_shared.h
+    ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/utilmatlib.cpp
+    ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/utilmatlib.h
+    ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/mstristrip.cpp
+    ${SOURCE_SDK_DIRECTORY_UTILS_COMMON}/mstristrip.h
     
     
     ${SOURCE_SDK_DIRECTORY_PUBLIC}/builddisp.cpp
@@ -70,8 +74,8 @@ set(VRAD_INCLUDE_FILES
     ${SOURCE_SDK_DIRECTORY_PUBLIC}/zip_utils.h
 )
 
-add_library(${PROJECT_NAME} SHARED 
-    ${VRAD_SOURCE_FILES}
+add_executable(${PROJECT_NAME} 
+    ${VBSP_SOURCE_FILES}
     ${VRAD_INCLUDE_FILES}
 )
 
@@ -89,16 +93,15 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     tier2::tier2
     bitmap::bitmap
     mathlib::mathlib
-    raytrace::raytrace
-    vmpi::vmpi
+    fgdlib::fgdlib
     vtf::vtf
     vstdlib::vstdlib
+    vmpi::vmpi
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-    MPI=1
+    MACRO_MATHLIB=1
     PROTECTED_THINGS_DISABLE=1
-    VRAD=1
 )
 
 if(SOURCE_SDK_IS_WINDOWS)

@@ -30,7 +30,6 @@ function(SOURCE_LIB_BASE_APPLY_PROPERTIES APPLY_NAME)
             /Zc:strictStrings-
             /Oi
             /W4
-            
         )
     
         # @note @todo @patchbyte unify
