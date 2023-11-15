@@ -1,0 +1,18 @@
+project("vrad_launcher")
+
+include(${SOURCE_SDK_DIRECTORY_CMAKE}/source_exe_base.cmake)
+
+set(VRAD_LAUNCHER_SOURCE_DIRECTORY 
+    ${SOURCE_SDK_DIRECTORY_UTILS}/vrad_launcher
+)
+
+set(VRAD_LAUNCHER_SOURCE_FILES
+    ${VRAD_LAUNCHER_SOURCE_DIRECTORY}/stdafx.h
+    ${VRAD_LAUNCHER_SOURCE_DIRECTORY}/vrad_launcher.cpp
+)
+
+add_executable(${PROJECT_NAME} 
+    ${VRAD_LAUNCHER_SOURCE_FILES}
+)
+
+SOURCE_EXE_BASE_APPLY_PROPERTIES(${PROJECT_NAME})

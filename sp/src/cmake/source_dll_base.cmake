@@ -32,6 +32,11 @@ function(SOURCE_DLL_BASE_APPLY_PROPERTIES APPLY_NAME)
             /W4
             
         )
+
+        target_link_options(${APPLY_NAME} PRIVATE
+            /NODEFAULTLIB:LIBC
+            /NODEFAULTLIB:LIBCD
+        )
     
         # @note @todo @patchbyte unify
 
